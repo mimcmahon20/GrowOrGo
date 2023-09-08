@@ -22,7 +22,7 @@ exports.registerUser = async (req, res) => {
     // Save the user in the database
     await user.save();
 
-    res.json({ msg: "User registered successfully" });
+    res.json({ msg: `User registered successfully` });
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Server error");
@@ -35,13 +35,13 @@ exports.loginUser = async (req, res) => {
     // Check if user exists
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
-      return res.status(400).json({ msg: "Invalid credentials" });
+      return res.status(400).json({ msg: "Invalid. Email not in database." });
     }
 
     // Check if password is correct
     const isMatch = await bcrypt.compare(req.body.password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ msg: "Invalid credentials" });
+      return res.status(400).json({ msg: "Invalid. Password is incorrect." });
     }
 
     // Create JWT
@@ -57,18 +57,6 @@ exports.loginUser = async (req, res) => {
       res.json({ token });
     });
 
-    res.json({ msg: "User logged in successfully" });
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).send("Server error");
-  }
-};
-
-// Logout a user
-exports.logoutUser = (req, res) => {
-  try {
-    res.clearCookie('token');
-    res.json({ msg: "User logged out successfully" });
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Server error");

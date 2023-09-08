@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { login } from "../../redux/slices/authSlice";
+import { loginAsync } from "../../redux/slices/authSlice";
 import React, { useEffect } from "react";
 
 export default function Login() {
@@ -12,7 +12,9 @@ export default function Login() {
         e.preventDefault();
         console.log("login form submitted");
         const { email, password } = e.target;
-        dispatch(login({ email: email.value, password: password.value }));
+        const payload = { email: email.value, password: password.value }
+        console.log(payload);
+        dispatch(loginAsync(payload));
     };
 
     useEffect(() => {

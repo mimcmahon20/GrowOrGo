@@ -16,6 +16,7 @@ export const loginUser = async (userData) => {
     const response = await axios.post(`${baseURL}/login`, userData);
     return response.data;
   } catch (error) {
+    console.log("API error: " + error.response.data)
     throw error.response.data;
   }
 };
