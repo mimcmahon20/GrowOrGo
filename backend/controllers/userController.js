@@ -62,3 +62,43 @@ exports.loginUser = async (req, res) => {
     res.status(500).send("Server error");
   }
 };
+
+// Get user information
+exports.getUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('-password');
+    if (!user) {
+      return res.status(400).json({ msg: 'User not found' });
+    }
+    res.json(user);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server error");
+  }
+};
+
+// Update a user
+exports.updateUser = async (req, res) => {
+  try {
+    await User.findByIdAndUpdate(
+      req.user.id,
+      req.body,
+      { new: true, runValidators: true }
+    )
+    res.json({ msg: 'User information updated.' });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server error");
+  }
+};
+
+//delete the user
+exports.deleteUser = async (req, res) => {
+  try {
+    await User.findByIdAndDelete(req.user.id);
+    res.json({ msg: 'User deleted' });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server error");
+  }
+};

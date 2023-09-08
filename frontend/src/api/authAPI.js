@@ -16,7 +16,47 @@ export const loginUser = async (userData) => {
     const response = await axios.post(`${baseURL}/login`, userData);
     return response.data;
   } catch (error) {
-    console.log("API error: " + error.response.data)
+    throw error.response.data;
+  }
+};
+
+export const getUser = async () => {
+  try {
+    const token = localStorage.getItem('token');
+    console.log(token);
+    const response = await axios.get(`${baseURL}/me`, {
+      headers: {
+        'Bearer': `${token}`,
+    }});
+  
+
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
+export const updateUser = async (userData) => {
+  try {
+    const token = localStorage.getItem('token');
+    console.log(token);
+    const response = await axios.put(`${baseURL}/me`, userData, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
+export const deleteUser = async () => {
+  try {
+    const response = await axios.delete(`${baseURL}/delete`);
+    return response.data;
+  } catch (error) {
     throw error.response.data;
   }
 };
