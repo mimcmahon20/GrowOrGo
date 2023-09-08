@@ -21,8 +21,7 @@ const workoutSchema = new mongoose.Schema({
         required: true
       },
       duration: {
-        type: Number,
-        required: true
+        type: Number
       },
       reps: {
         type: Number

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { registerAsync } from "../../redux/slices/authSlice"; // Make sure to create this async thunk in your authSlice
+import { registerAsync, loginAsync } from "../../redux/slices/authSlice"; // Make sure to create this async thunk in your authSlice
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     username: '',
@@ -23,11 +25,20 @@ export default function Register() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (formData.password === formData.confirmPassword) {
-      dispatch(registerAsync(formData));
+      dispatch(registerAsync(formData)).then(() => {
+        const payload = { email: formData.email, password: formData.password }
+        dispatch(loginAsync(payload)).then(() => {
+          navigate("/profile");
+        });
+
+      });
+      
     } else {
       alert('Passwords do not match');
     }
   };
+
+
 
   return (
     <div className="register">

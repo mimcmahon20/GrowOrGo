@@ -7,8 +7,13 @@ import Register from "./components/Register/Register";
 import Login from "./components/Login/Login";
 import Profile from "./components/Profile/Profile";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
+import WorkoutList from "./components/WorkoutList/WorkoutList";
 
 export default function App() {
+  if (localStorage.getItem("token") === "null") {
+    localStorage.removeItem("token");
+  }
+
   const BrowserRouter = createBrowserRouter([
     {
       path: "/",
@@ -19,6 +24,7 @@ export default function App() {
         { path: "/register", element: <Register /> },
         { path: "/login", element: <Login /> },
         { path: "/profile", element: <Profile /> },
+        { path: "/workouts", element: <WorkoutList />}
       ],
     },
   ]);

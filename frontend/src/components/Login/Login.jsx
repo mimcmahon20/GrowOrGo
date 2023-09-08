@@ -10,10 +10,8 @@ export default function Login() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("login form submitted");
         const { email, password } = e.target;
         const payload = { email: email.value, password: password.value }
-        console.log(payload);
         dispatch(loginAsync(payload));
     };
 

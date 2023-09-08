@@ -23,10 +23,9 @@ export const loginUser = async (userData) => {
 export const getUser = async () => {
   try {
     const token = localStorage.getItem('token');
-    console.log(token);
     const response = await axios.get(`${baseURL}/me`, {
       headers: {
-        'Bearer': `${token}`,
+        'Authorization': `Bearer ${token}`,
     }});
   
 
@@ -39,7 +38,6 @@ export const getUser = async () => {
 export const updateUser = async (userData) => {
   try {
     const token = localStorage.getItem('token');
-    console.log(token);
     const response = await axios.put(`${baseURL}/me`, userData, {
       headers: {
         'Content-Type': 'application/json',
@@ -54,7 +52,12 @@ export const updateUser = async (userData) => {
 
 export const deleteUser = async () => {
   try {
-    const response = await axios.delete(`${baseURL}/delete`);
+    const token = localStorage.getItem('token');
+    const response = await axios.delete(`${baseURL}/delete`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
     return response.data;
   } catch (error) {
     throw error.response.data;
