@@ -2,6 +2,22 @@ import axios from 'axios';
 
 const baseURL = 'http://localhost:5000/api/users';
 
+export const verifyToken = async () => {
+  try {
+    const token = localStorage.getItem('token');
+    console.log(token);
+    const response = await axios.post(`${baseURL}/verify-token`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
 export const registerUser = async (userData) => {
   try {
     const response = await axios.post(`${baseURL}/register`, userData);

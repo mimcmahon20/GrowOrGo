@@ -1,7 +1,8 @@
 import * as React from "react";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { selectAuth, getUserAsync } from "./redux/slices/authSlice";
+import { selectAuth, verifyTokenAsync } from "./redux/slices/authSlice";
 import NavBar from "./components/NavBar/NavBar";
 import Home from "./components/Home/Home";
 import Register from "./components/Register/Register";
@@ -12,16 +13,19 @@ import WorkoutList from "./components/WorkoutList/WorkoutList";
 
 export default function App() {
   const { user } = useSelector(selectAuth);
+  const dispatch = useDispatch();
   const token = localStorage.getItem("token");
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (token === "null") {
+      console.log("token is null")
       localStorage.removeItem("token");
     } else if (token && !user) {
-      getUserAsync();
-      console.log(user);
+      console.log("token is not null, verifying user")
+      dispatch(verifyTokenAsync());
+      console.log(user, "user");
     }
-  }, [user]);
+  }, [user, token]);
 
   const BrowserRouter = createBrowserRouter([
     {

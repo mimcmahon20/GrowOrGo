@@ -46,27 +46,64 @@ Creating intuitive and interactive data visualizations.
 
 file structure: 
 
-workout-tracker/
-├── backend/
-│   ├── config/          # Configuration files (e.g., database connection)
-│   ├── models/         # Database models (schemas)
-│   ├── routes/         # API routes
-│   ├── controllers/    # Controllers (handle the business logic)
-│   ├── middleware/     # Middleware (e.g., authentication)
-│   ├── app.js          # Main file to set up the server
-│   └── ...
-└── frontend/
-    ├── public/          # Public assets (e.g., index.html)
-    ├── src/
-    │   ├── components/ # React components
-    │   ├── redux/      # Redux setup (actions, reducers, store)
-    |   |   |--- slices/# Slices folder
-    │   ├── assets/     # Assets like images, styles
-    │   ├── utils/      # Utility functions
-    │   ├── App.js      # Main component
-    │   └── ...
-    ├── package.json    # Project dependencies and scripts
-    └── ...
+.
+├── .gitattributes
+├── README.md
+├── backend
+│   ├── app.js
+│   ├── config
+│   │   └── db.js
+│   ├── controllers
+│   │   ├── userController.js
+│   │   └── workoutController.js
+│   ├── middleware
+│   │   └── authMiddleware.js
+│   ├── models
+│   │   ├── User.js
+│   │   └── Workout.js
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── routes
+│   │   ├── userRoutes.js
+│   │   └── workoutRoutes.js
+├── frontend
+│   ├── README.md
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── public
+│   │   ├── index.html
+│   │   ├── manifest.json
+│   │   └── robots.txt
+│   ├── src
+│   │   ├── App.js
+│   │   ├── api
+│   │   │   ├── authAPI.js
+│   │   │   └── workoutAPI.js
+│   │   ├── components
+│   │   │   ├── ErrorPage
+│   │   │   │   └── ErrorPage.jsx
+│   │   │   ├── Home
+│   │   │   │   └── Home.jsx
+│   │   │   ├── Login
+│   │   │   │   └── Login.jsx
+│   │   │   ├── NavBar
+│   │   │   │   └── NavBar.jsx
+│   │   │   ├── Profile
+│   │   │   │   └── Profile.jsx
+│   │   │   ├── Register
+│   │   │   │   └── Register.jsx
+│   │   │   ├── WorkoutForm
+│   │   │   │   └── WorkoutForm.jsx
+│   │   │   └── WorkoutList
+│   │   │       └── WorkoutList.jsx
+│   │   ├── index.css
+│   │   ├── index.js
+│   │   ├── redux
+│   │   │   ├── slices
+│   │   │   │   ├── authSlice.js
+│   │   │   │   └── workoutSlice.js
+│   │   │   └── store.js
+└── prompt.txt
 
 CURRENT TASK: 
 

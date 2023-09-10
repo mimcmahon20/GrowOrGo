@@ -1,5 +1,18 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { registerUser, loginUser, getUser, updateUser, deleteUser } from '../../api/authAPI';
+import { verifyToken, registerUser, loginUser, getUser, updateUser, deleteUser } from '../../api/authAPI';
+
+export const verifyTokenAsync = createAsyncThunk(
+  'auth/veryifyTokenAsync',
+  async (_, thunkAPI) => {
+    try {
+      const response = await verifyToken();
+      console.log(response)
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response ? error.response.data : error.message);  // Updated line to handle undefined response property
+    }
+  }
+);
 
 export const registerAsync = createAsyncThunk(
   'auth/registerAsync',
