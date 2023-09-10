@@ -3,7 +3,7 @@ const router = express.Router();
 const { createWorkout, getWorkouts, updateWorkout, deleteWorkout } = require('../controllers/workoutController');
 
 router.post('/', createWorkout);
-router.get('/:userId', getWorkouts);
+router.get('/user/:userId', getWorkouts);
 router.put('/:id', updateWorkout);
 router.delete('/:id', deleteWorkout);
 

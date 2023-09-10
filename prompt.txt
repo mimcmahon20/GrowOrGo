@@ -60,6 +60,7 @@ workout-tracker/
     ├── src/
     │   ├── components/ # React components
     │   ├── redux/      # Redux setup (actions, reducers, store)
+    |   |   |--- slices/# Slices folder
     │   ├── assets/     # Assets like images, styles
     │   ├── utils/      # Utility functions
     │   ├── App.js      # Main component

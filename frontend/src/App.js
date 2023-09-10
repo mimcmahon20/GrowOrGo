@@ -1,6 +1,7 @@
 import * as React from "react";
+import { useSelector } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
+import { selectAuth, getUserAsync } from "./redux/slices/authSlice";
 import NavBar from "./components/NavBar/NavBar";
 import Home from "./components/Home/Home";
 import Register from "./components/Register/Register";
@@ -10,9 +11,17 @@ import ErrorPage from "./components/ErrorPage/ErrorPage";
 import WorkoutList from "./components/WorkoutList/WorkoutList";
 
 export default function App() {
-  if (localStorage.getItem("token") === "null") {
-    localStorage.removeItem("token");
-  }
+  const { user } = useSelector(selectAuth);
+  const token = localStorage.getItem("token");
+
+  React.useEffect(() => {
+    if (token === "null") {
+      localStorage.removeItem("token");
+    } else if (token && !user) {
+      getUserAsync();
+      console.log(user);
+    }
+  }, [user]);
 
   const BrowserRouter = createBrowserRouter([
     {
@@ -24,7 +33,7 @@ export default function App() {
         { path: "/register", element: <Register /> },
         { path: "/login", element: <Login /> },
         { path: "/profile", element: <Profile /> },
-        { path: "/workouts", element: <WorkoutList />}
+        { path: "/workouts", element: <WorkoutList /> },
       ],
     },
   ]);

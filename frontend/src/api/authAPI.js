@@ -27,8 +27,6 @@ export const getUser = async () => {
       headers: {
         'Authorization': `Bearer ${token}`,
     }});
-  
-
     return response.data;
   } catch (error) {
     throw error.response.data;

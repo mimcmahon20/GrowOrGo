@@ -1,10 +1,15 @@
-import axios from 'axios';
+import axios from "axios";
 
-const baseURL = 'http://localhost:5000/api/workouts';
+const baseURL = "http://localhost:5000/api/workouts";
 
 export const createWorkout = async (workoutData) => {
   try {
-    const response = await axios.post(baseURL, workoutData);
+    const token = localStorage.getItem('token');
+    const response = await axios.post(`${baseURL}`, workoutData, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
     return response.data;
   } catch (error) {
     throw error.response.data;
@@ -13,16 +18,26 @@ export const createWorkout = async (workoutData) => {
 
 export const getWorkouts = async (userId) => {
   try {
-    const response = await axios.get(`${baseURL}/${userId}`);
+    const token = localStorage.getItem('token');
+    const response = await axios.get(`${baseURL}/user/${userId}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
     return response.data;
   } catch (error) {
     throw error.response.data;
   }
 };
 
-export const updateWorkout = async (workoutId, updatedData) => {
+export const updateWorkout = async (workoutId, workoutData) => {
   try {
-    const response = await axios.put(`${baseURL}/${workoutId}`, updatedData);
+    const token = localStorage.getItem('token');
+    const response = await axios.put(`${baseURL}/${workoutId}`, workoutData, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
     return response.data;
   } catch (error) {
     throw error.response.data;
@@ -31,7 +46,12 @@ export const updateWorkout = async (workoutId, updatedData) => {
 
 export const deleteWorkout = async (workoutId) => {
   try {
-    const response = await axios.delete(`${baseURL}/${workoutId}`);
+    const token = localStorage.getItem('token');
+    const response = await axios.delete(`${baseURL}/${workoutId}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
     return response.data;
   } catch (error) {
     throw error.response.data;

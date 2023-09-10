@@ -1,18 +1,25 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getWorkoutsAsync, selectWorkouts } from '../../redux/slices/workoutSlice';
+import { selectAuth } from '../../redux/slices/authSlice';
+import WorkoutForm from '../WorkoutForm/WorkoutForm';
 
-function WorkoutList({ userId }) {
+function WorkoutList() {
   const dispatch = useDispatch();
   const workouts = useSelector(selectWorkouts);
   const status = useSelector((state) => state.workout.status);
   const error = useSelector((state) => state.workout.error);
+  const {user} = useSelector(selectAuth);
+
+  console.log(user._id);
+
+  console.log(workouts);
 
   useEffect(() => {
     if (status === 'idle') {
-      dispatch(getWorkoutsAsync(userId));
+      dispatch(getWorkoutsAsync(user._id));
     }
-  }, [status, dispatch, userId]);
+  }, [status, dispatch, user]);
 
   if (status === 'loading') {
     return <div>Loading...</div>;
@@ -24,11 +31,12 @@ function WorkoutList({ userId }) {
 
   return (
     <div>
+      <WorkoutForm></WorkoutForm>
       <h1>Your Workouts</h1>
       <ul>
         {workouts.map((workout) => (
           <li key={workout._id} onClick={() => handleWorkoutClick(workout)}>
-            {workout.date} - {workout.type}
+            {workout.date.substring(0,10)} - {workout.exercises[0].name}
           </li>
         ))}
       </ul>
